@@ -108,27 +108,30 @@ export const Clients = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    let ignore = false;
-    async function load() {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch("https://raw.githubusercontent.com/aa7hil69/portfolio/main/db.json", { headers: { Accept: "application/json" } });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const list = await res.json();
-        if (!ignore) setNames(Array.isArray(list) ? list.map((x) => x.name) : []);
-      } catch (e) {
-        if (!ignore) setError(e);
-      } finally {
-        if (!ignore) setLoading(false);
-      }
+useEffect(() => {
+  let ignore = false;
+  async function load() {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("https://raw.githubusercontent.com/aa7hil69/portfolio/main/db.json", {
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (!ignore) setNames(data.companies.map((x) => x.name));
+    } catch (e) {
+      if (!ignore) setError(e);
+    } finally {
+      if (!ignore) setLoading(false);
     }
-    load();
-    return () => {
-      ignore = true;
-    };
-  }, []);
+  }
+  load();
+  return () => {
+    ignore = true;
+  };
+}, []);
+
 
   const chunks = useMemo(() => chunkArray(names, 12), [names]);
 
