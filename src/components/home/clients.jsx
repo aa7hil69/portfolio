@@ -114,7 +114,7 @@ export const Clients = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch("http://raw.githubusercontent.com/aa7hil69/portfolio/refs/heads/main/db.json", { headers: { Accept: "application/json" } });
+        const res = await fetch("https://raw.githubusercontent.com/aa7hil69/portfolio/main/db.json", { headers: { Accept: "application/json" } });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const list = await res.json();
         if (!ignore) setNames(Array.isArray(list) ? list.map((x) => x.name) : []);
