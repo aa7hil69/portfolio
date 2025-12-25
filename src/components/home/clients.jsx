@@ -71,7 +71,7 @@ export const Clients = () => {
 
     async function fetchClients() {
       try {
-        const res = await fetch("/api/clients"a);
+        const res = await fetch("/api/clients");
         if (!res.ok) throw new Error("Failed to fetch clients");
 
         const data = await res.json();
