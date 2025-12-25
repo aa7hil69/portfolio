@@ -43,7 +43,7 @@ export const Gallery = () => {
 
     async function fetchGallery() {
       try {
-        const res = await fetch("/api/gallery");
+        const res = await fetch("/api/galleries");
 
         if (!res.ok) throw new Error("Failed to fetch gallery");
 
