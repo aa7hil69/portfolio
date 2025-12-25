@@ -20,6 +20,3 @@ export default async function handler(req, res) {
     });
   }
 }
-
-https://jminternationalspc.com/API/gallery
-JMSPC-live_3aBcDeFgHiJkLmNoPqRsTuVwXyZ1234567890
