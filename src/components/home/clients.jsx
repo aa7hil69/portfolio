@@ -117,7 +117,7 @@ useEffect(() => {
 
   async function fetchClients() {
     try {
-      const res = await fetch("/api/client");
+      const res = await fetch("/api/clients");
       if (!res.ok) throw new Error("Failed to fetch clients");
 
       const data = await res.json();
