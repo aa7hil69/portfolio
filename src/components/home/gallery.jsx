@@ -1,11 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useAnimation,
-  useInView,
-} from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 
 /* ---------------- Animations ---------------- */
 
@@ -44,7 +38,6 @@ export const Gallery = () => {
     async function fetchGallery() {
       try {
         const res = await fetch("/api/galleries");
-
         if (!res.ok) throw new Error("Failed to fetch gallery");
 
         const data = await res.json();
@@ -74,7 +67,7 @@ export const Gallery = () => {
   }, []);
 
   return (
-    <section className="bg-[#061d42] py-12" id="gallery">
+    <section className="bg-[#32348D] py-12" id="gallery">
       <div className="mx-auto max-w-7xl px-4">
         <motion.div
           ref={headerRef}
@@ -108,66 +101,55 @@ export const Gallery = () => {
 /* ---------------- Grid ---------------- */
 
 const AnimatedGrid = ({ items }) => {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 85%", "end 15%"],
-  });
-
-  const scale = useTransform(scrollYProgress, [0, 1], [1.04, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [6, -4]);
-
   const container = {
     hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.05 } },
+    show: { opacity: 1, transition: { staggerChildren: 0.08 } },
   };
 
   const item = {
-    hidden: { opacity: 0, y: 16, scale: 0.98 },
+    hidden: { opacity: 0, y: 18 },
     show: {
       opacity: 1,
       y: 0,
-      scale: 1,
-      transition: { type: "spring", stiffness: 420, damping: 28 },
+      transition: { type: "spring", stiffness: 260, damping: 26 },
     },
   };
 
   return (
     <motion.div
-      ref={containerRef}
       variants={container}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: false, amount: 0.3 }}
-      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4"
-      style={{ scale, y }}
+      viewport={{ once: true, amount: 0.25 }}
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
     >
       {items.map((img) => (
-        <motion.figure
+        <motion.article
           key={img.id}
           variants={item}
-          className="relative overflow-hidden rounded-lg bg-white/5 ring-1 ring-white/5 group"
+          className="flex flex-col overflow-hidden rounded-xl bg-[#0b0f14] ring-1 ring-white/10"
         >
-          <img
-            src={img.src}
-            alt={img.title}
-            className="h-36 sm:h-40 md:h-44 lg:h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
-
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-            <div>
-              <h3 className="text-white text-sm font-semibold">
-                {img.title}
-              </h3>
-              <p className="text-white/80 text-xs line-clamp-2">
-                {img.description}
-              </p>
-            </div>
+          {/* Image */}
+          <div className="h-48 w-full overflow-hidden">
+            <img
+              src={img.src}
+              alt={img.title}
+              className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+              loading="lazy"
+            />
           </div>
-        </motion.figure>
+
+          {/* Content */}
+          <div className="flex flex-col flex-1 px-4 py-3">
+            <h3 className="text-white text-base font-semibold leading-tight">
+              {img.title}
+            </h3>
+            <p className="mt-1 text-white/70 text-xs leading-relaxed line-clamp-3">
+              {img.description}
+            </p>
+          </div>
+        </motion.article>
       ))}
     </motion.div>
   );
 };
-

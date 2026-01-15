@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 export const Events = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,17 +15,16 @@ export const Events = () => {
 
         const data = await res.json();
 
-        const mapped =
-          Array.isArray(data.events)
-            ? data.events.map((e) => ({
-                id: e.id,
-                title: e.event_name,
-                description: e.event_details,
-                image: e.photo1,
-                date: e.posted_on,
-                url: e.event_url,
-              }))
-            : [];
+        const mapped = Array.isArray(data.events)
+          ? data.events.map((e) => ({
+              id: e.id,
+              title: e.event_name,
+              description: e.event_details,
+              image: e.photo1,
+              date: e.posted_on,
+              url: e.event_url,
+            }))
+          : [];
 
         if (!ignore) setEvents(mapped);
       } catch (err) {
@@ -36,7 +36,9 @@ export const Events = () => {
     }
 
     fetchEvents();
-    return () => (ignore = true);
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   return (
@@ -47,15 +49,21 @@ export const Events = () => {
         </h1>
 
         {loading && (
-          <p className="text-center text-white/70">Loading events...</p>
+          <p className="text-center text-white/70">
+            Loading events...
+          </p>
         )}
 
         {error && (
-          <p className="text-center text-red-400">{error}</p>
+          <p className="text-center text-red-400">
+            {error}
+          </p>
         )}
 
         {!loading && !error && events.length === 0 && (
-          <p className="text-center text-white/70">No events found.</p>
+          <p className="text-center text-white/70">
+            No events found.
+          </p>
         )}
 
         {!loading && !error && events.length > 0 && (
@@ -103,6 +111,6 @@ export const Events = () => {
           </div>
         )}
       </main>
-       </div>
+    </div>
   );
 };
