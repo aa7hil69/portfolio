@@ -67,7 +67,7 @@ export const Gallery = () => {
   }, []);
 
   return (
-    <section className="bg-[#061d42] py-12" id="gallery">
+    <section className="bg-[#061d42] py-4" id="gallery">
       <div className="mx-auto max-w-7xl px-4">
         <motion.div
           ref={headerRef}
@@ -151,7 +151,7 @@ const AnimatedGrid = ({ items }) => {
             className="
               w-72 flex-shrink-0
               rounded-xl overflow-hidden
-              bg-[#0b0f14]
+              bg-[#112a63]
               ring-1 ring-white/10
             "
           >

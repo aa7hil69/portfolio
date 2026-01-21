@@ -16,27 +16,32 @@ export const Home = () => {
         <Navbar />
         <main>
           {/* Hero / Description */}
-          <section id="home" className="min-h-screen flex items-center">
+          {/* <section id="home" className="min-h-screen flex items-center">  */}
+          <section id="home" className="flex items-center">
             <Description />
           </section>
 
-          <section id="companies" className="min-h-screen ">
+          {/* <section id="companies" className="min-h-screen "> */}
+          <section id="companies" className=" ">
             <Companies />
           </section>
 
-          <section id="clients" className="min-h-screen ">
+          {/* <section id="clients" className="min-h-screen "> */}
+          <section id="clients" className=" ">
             <Clients />
           </section>
 
-          <section id="contact" className="min-h-screen">
+          {/* <section id="contact" className="min-h-screen"> */}
+          <section id="contact" className=" ">
             <Contact />
           </section>
 
-          <section id="gallery" className="min-h-screen ">
+          {/* <section id="gallery" className="min-h-screen "> */}
+          <section id="gallery" className=" ">
             <Gallery />
           </section>
-
-          <section id="events" className="min-h-screen ">
+          {/* <section id="events" className="min-h-screen "> */}
+          <section id="events" className=" ">
             <Events />
           </section>
           <ScrollToTopButton showAfter={200} />
