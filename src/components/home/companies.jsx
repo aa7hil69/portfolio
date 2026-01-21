@@ -22,7 +22,9 @@ export const Companies = () => {
   }, [controls]);
 
   useEffect(() => {
-    controls.start(inView ? "show" : "exit");
+    if (inView) {
+      controls.start("show");
+    }
   }, [inView, controls]);
 
   const gridRef = useRef(null);
@@ -40,11 +42,7 @@ export const Companies = () => {
     show: {
       opacity: 1,
       transition: { staggerChildren: 0.15, delayChildren: 0.15 },
-    },
-    exit: {
-      opacity: 0.3,
-      transition: { duration: 0.3, ease: "easeInOut" },
-    },
+    }
   };
 
   const slideInRight = {
@@ -53,12 +51,7 @@ export const Companies = () => {
       x: 0,
       opacity: 1,
       transition: { type: "spring", stiffness: 600, damping: 35, mass: 0.7 },
-    },
-    exit: {
-      x: -100,
-      opacity: 0,
-      transition: { duration: 0.4, ease: "easeInOut" },
-    },
+    }
   };
 
   const slideInLeft = {
@@ -67,12 +60,7 @@ export const Companies = () => {
       x: 0,
       opacity: 1,
       transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
-    },
-    exit: {
-      x: 100,
-      opacity: 0,
-      transition: { duration: 0.4, ease: "easeInOut" },
-    },
+    }
   };
 
   const slideUp = {
@@ -82,13 +70,7 @@ export const Companies = () => {
       y: 0,
       filter: "blur(0px)",
       transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
-    },
-    exit: {
-      opacity: 0,
-      y: 24,
-      filter: "blur(6px)",
-      transition: { duration: 0.4, ease: "easeInOut" },
-    },
+    }
   };
 
   const stagger = {
@@ -122,8 +104,8 @@ export const Companies = () => {
           className="relative text-center mb-8 sm:mb-10 px-2 sm:px-0"
           variants={stagger}
           initial="hidden"
-          animate={controls}
-          exit="exit"
+          whileInView="show"
+          viewport={{ amount: 0.6, once: false }}
         >
           <motion.h2
             variants={slideInLeft}
@@ -139,12 +121,13 @@ export const Companies = () => {
           <motion.p
             ref={paraRef}
             initial="hidden"
-            animate={paraControls}
             variants={slideUp}
+            whileInView="show"
+            viewport={{ amount: 0.5, once: false }}
             className="text-white/80 text-sm sm:text-base md:text-lg max-w-xl sm:max-w-3xl mx-auto mt-4"
           >
             Explore our curated partner brands. Each tile highlights the logo,
-            brief summary, and a quick link to learn more. Hover or focus a card,
+            brief summary, and a quick link to learn more. Hover or focus on a card,
             then open the website.
           </motion.p>
         </motion.div>
@@ -155,10 +138,8 @@ export const Companies = () => {
             ref={gridRef}
             variants={container}
             initial="hidden"
-            animate={controls}
-            exit="exit"
-            onViewportLeave={handleLeave}
-            onViewportEnter={handleEnter}
+            whileInView="show"
+            viewport={{ amount: 0.3, once: false }}
             className="relative grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3"
           >
             <motion.span

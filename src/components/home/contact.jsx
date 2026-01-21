@@ -104,9 +104,15 @@ export const Contact = () => {
   };
 
   const contactButtons = [
-    { icon: <FaMapMarkerAlt className="text-white text-xl sm:text-2xl" />, text: "12th Street, Oman", onClick: () => {} },
-    { icon: <FaEnvelope className="text-white text-xl sm:text-2xl" />, text: "contact@jminternational.com", onClick: () => {} },
-    { icon: <FaPhone className="text-white text-xl sm:text-2xl" />, text: "+972 (123) 000- 0000", onClick: () => {} },
+    { icon: <FaMapMarkerAlt className="whitespace-pre-line text-white text-xl sm:text-2xl" />, text: (
+      <>
+        Haffa House Hotel, Office no 303
+        <br />
+        Muscat, Sultanate of Oman
+      </>
+    ), onClick: () => {} },
+    { icon: <FaEnvelope className="text-white text-xl sm:text-2xl" />, text: "info@jminternationalspc.com,\njessymathewhr@gmail.com", onClick: () => {} },
+    { icon: <FaPhone className="whitespace-pre-line text-white text-xl sm:text-2xl" />, text: "+968 9770 8198", onClick: () => {} },
   ];
 
   const sectionRef = useRef(null);
@@ -236,7 +242,7 @@ export const Contact = () => {
               </motion.p>
 
               <motion.div variants={slideUp} className="flex flex-wrap items-center justify-center md:justify-start gap-5 pt-5">
-                <a href="#" aria-label="Instagram" className="p-1 -m-1 group" title="Instagram">
+                <a href="https://www.instagram.com/jm_international_spc/" aria-label="Instagram" className="p-1 -m-1 group" title="Instagram">
                   <FontAwesomeIcon
                     icon={faInstagram}
                     className="text-white/80 transition-transform duration-200 text-2xl group-hover:scale-110"
@@ -252,7 +258,7 @@ export const Contact = () => {
                   />
                   <style>{`.group:hover svg { color: #FF0000 !important; }`}</style>
                 </a>
-                <a href="#" aria-label="LinkedIn" className="p-1 -m-1 group" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/jessy-mathew-55318b99/" aria-label="LinkedIn" className="p-1 -m-1 group" title="LinkedIn">
                   <FontAwesomeIcon
                     icon={faLinkedin}
                     className="text-white/80 transition-transform duration-200 text-2xl group-hover:scale-110"

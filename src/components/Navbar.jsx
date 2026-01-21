@@ -213,7 +213,7 @@ export const Navbar = ({ appReady = true }) => {
               ].join(" ")}
             >
               <a
-                href="https://instagram.com/yourpage"
+                href="https://www.instagram.com/jm_international_spc/"
                 className="group inline-flex items-center justify-center rounded-md p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-400/60"
                 {...extProps}
                 aria-label="Instagram"
@@ -224,7 +224,7 @@ export const Navbar = ({ appReady = true }) => {
                 />
               </a>
               <a
-                href="https://linkedin.com/company/yourpage"
+                href="hhttps://www.linkedin.com/in/jessy-mathew-55318b99/"
                 className="group inline-flex items-center justify-center rounded-md p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60"
                 {...extProps}
                 aria-label="LinkedIn"
@@ -246,7 +246,7 @@ export const Navbar = ({ appReady = true }) => {
                 />
               </a>
               <a
-                href="https://yourwebsite.com"
+                href="https://jminternationalspc.com/"
                 className="group inline-flex items-center justify-center rounded-md p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60"
                 {...extProps}
                 aria-label="Website"
@@ -333,7 +333,7 @@ export const Navbar = ({ appReady = true }) => {
 
               <div className="flex items-center gap-6 pt-2">
                 <a
-                  href="https://instagram.com/yourpage"
+                  href="https://www.instagram.com/jm_international_spc/"
                   {...extProps}
                   aria-label="Instagram"
                   className="rounded-md p-2 hover:bg-white/5"
@@ -341,7 +341,7 @@ export const Navbar = ({ appReady = true }) => {
                   <FaInstagram size={26} className="text-white hover:text-pink-400 transition-colors duration-200" />
                 </a>
                 <a
-                  href="https://linkedin.com/company/yourpage"
+                  href="https://www.linkedin.com/in/jessy-mathew-55318b99/"
                   {...extProps}
                   aria-label="LinkedIn"
                   className="rounded-md p-2 hover:bg-white/5"
@@ -357,7 +357,7 @@ export const Navbar = ({ appReady = true }) => {
                   <FaFacebook size={26} className="text-white hover:text-blue-500 transition-colors duration-200" />
                 </a>
                 <a
-                  href="https://yourwebsite.com"
+                  href="https://jminternationalspc.com/"
                   {...extProps}
                   aria-label="Website"
                   className="rounded-md p-2 hover:bg-white/5"
