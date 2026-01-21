@@ -58,7 +58,8 @@ export const Description = () => {
 
   return (
     <section ref={sectionRef} className="relative w-full bg-[#061d42] text-white">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 py-10 md:py-14">
+      {/* reduce mt to increase top padding */}
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 py-10 md:py-14 -mt-18 md:-mt-25">
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-12">
           {/* LEFT: Text (scroll-linked slide left on exit, returns on enter) */}
           <motion.div
@@ -103,7 +104,7 @@ export const Description = () => {
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.6 }}
-                transition={{ type: "spring", stiffness: 420, damping: 28, delay: 1.05 }} // slight stagger
+                transition={{ type: "spring", stiffness: 420, damping: 28}}
                 className="mt-2 text-white/95 font-teko font-light text-[15px] sm:text-[25px] leading-7"
               >
                 A respected figure in the Middle East’s HR and manpower ecosystem,

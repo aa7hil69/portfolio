@@ -71,7 +71,7 @@ export const Events = () => {
             {events.map((event) => (
               <article
                 key={event.id}
-                className="bg-[#141A2F] rounded-lg overflow-hidden ring-1 ring-white/10 hover:ring-white/20 transition"
+                className="bg-[#112a63] rounded-lg overflow-hidden ring-1 ring-white/10 hover:ring-white/20 transition"
               >
                 {event.image && (
                   <img

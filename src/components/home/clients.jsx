@@ -44,54 +44,77 @@ function Panel({ items = [], rows = 12, seed = 0, loading, error }) {
   const computed = useMemo(() => {
     if (!items.length) return [];
     if (items.length <= rows) return items;
-    return Array.from({ length: rows }, (_, i) => items[(i * 3 + seed) % items.length]);
+
+    return Array.from(
+      { length: rows },
+      (_, i) => items[(i * 3 + seed) % items.length]
+    );
   }, [items, rows, seed]);
 
-  const wrapRef = useRef(null);
-  const inView = useInView(wrapRef, { amount: 0.5, margin: "0px 0px -10% 0px" });
-  const [hasEntered, setHasEntered] = useState(false);
-
-  useEffect(() => {
-    if (inView && !hasEntered) setHasEntered(true);
-  }, [inView, hasEntered]);
-
-  const listControls = useAnimation();
-  useEffect(() => {
-    listControls.start(inView ? "show" : "hidden");
-  }, [inView, listControls]);
-
   return (
-    <section ref={wrapRef} className="rounded-2xl text-white">
-      <motion.div
-        initial={{ opacity: 0, y: 24, scale: 0.98 }}
-        animate={hasEntered ? { opacity: 1, y: 0, scale: 1 } : {}}
-        transition={{ type: "spring", stiffness: 420, damping: 28 }}
-      >
-        <div className="p-4 sm:p-5">
-          {loading && <div className="text-slate-300 text-sm">Loading...</div>}
-          {error && <div className="text-red-300 text-sm">Failed to load data</div>}
+    <motion.section
+      className="rounded-2xl text-white"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ amount: 0.35 }}
+      variants={{
+        hidden: {
+          opacity: 0,
+          y: 28,
+          scale: 0.98,
+        },
+        show: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: {
+            type: "spring",
+            stiffness: 140,
+            damping: 22,
+            staggerChildren: 0.08,
+          },
+        },
+      }}
+    >
+      <div className="p-4 sm:p-5">
+        {loading && (
+          <div className="text-slate-300 text-sm">Loading...</div>
+        )}
 
-          {!loading && !error && (
-            <motion.ul
-              variants={listContainer}
-              initial="hidden"
-              animate={listControls}
-              className="space-y-3"
-            >
-              {computed.map((name, i) => (
-                <motion.li
-                  key={i}
-                  variants={listItem}
-                  className="rounded-lg bg-[#112a63] px-3 py-2 text-[13px] leading-5"
-                >
-                  {name}
-                </motion.li>
-              ))}
-            </motion.ul>
-          )}
-        </div>
-      </motion.div>
-    </section>
+        {error && (
+          <div className="text-red-300 text-sm">
+            Failed to load data
+          </div>
+        )}
+
+        {!loading && !error && (
+          <motion.ul className="space-y-3">
+            {computed.map((name, i) => (
+              <motion.li
+                key={i}
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    x: -12,
+                  },
+                  show: {
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      duration: 0.35,
+                      ease: "easeOut",
+                    },
+                  },
+                }}
+                className="rounded-lg bg-[#112a63] px-3 py-2 text-[13px] leading-5"
+              >
+                {name}
+              </motion.li>
+            ))}
+          </motion.ul>
+        )}
+      </div>
+    </motion.section>
   );
 }
 
