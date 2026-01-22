@@ -12,7 +12,7 @@ export const Home = () => {
     <div className="bg-[#061d42] text-white">
       <style>{`html{scroll-behavior:smooth;}`}</style>
 
-      <div className="min-h-screen overflow-x-hidden">
+      <div className="overflow-x-hidden">
         <Navbar />
         <main>
           {/* Hero / Description */}
