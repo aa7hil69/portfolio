@@ -100,7 +100,7 @@ export const Gallery = () => {
 
 /* ---------------- Grid ---------------- */
 
-const SPEED = 40; // px per second (adjust to taste)
+const SPEED = 60; // px per second (adjust to taste)
 
 const AnimatedGrid = ({ items }) => {
   const trackRef = useRef(null);

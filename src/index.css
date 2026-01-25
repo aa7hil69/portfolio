@@ -265,13 +265,3 @@ body {
   .animate-fade-in-left { animation: fade-in-left 600ms ease-out both; }
   
 }
-
-/* Hide horizontal scrollbar */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none;  /* IE/Edge */
-  scrollbar-width: none;     /* Firefox */
-}

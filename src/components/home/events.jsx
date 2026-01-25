@@ -1,10 +1,73 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useAnimation, useInView } from "framer-motion";
+
+/* ---------------- Animations ---------------- */
+
+const slideInFromRight = {
+  hidden: { opacity: 0, x: 40, filter: "blur(4px)" },
+  show: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1], // smoother easeOutExpo-ish
+    },
+  },
+};
+
+const textStagger = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const cardContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const cardItem = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+    filter: "blur(3px)",
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.45,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+/* ---------------- Events ---------------- */
 
 export const Events = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  /* Header animation */
+  const headerRef = useRef(null);
+  const headerInView = useInView(headerRef, { amount: 0.6 });
+  const headerControls = useAnimation();
+
+  useEffect(() => {
+    headerControls.start(headerInView ? "show" : "hidden");
+  }, [headerInView, headerControls]);
+
+  /* Fetch events */
   useEffect(() => {
     let ignore = false;
 
@@ -42,12 +105,25 @@ export const Events = () => {
   }, []);
 
   return (
-    <div className="bg-[#061d42] min-h-screen overflow-x-hidden">
+    <section className="bg-[#061d42] min-h-screen overflow-x-hidden">
       <main className="mx-auto max-w-7xl px-4 py-12 text-white">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-teko tracking-wide mb-8 text-center">
-          Events
-        </h1>
+        {/* ---------- Header ---------- */}
+        <motion.div
+          ref={headerRef}
+          variants={textStagger}
+          initial="hidden"
+          animate={headerControls}
+          className="text-center mb-10"
+        >
+          <motion.h1
+            variants={slideInFromRight}
+            className="text-3xl sm:text-4xl md:text-5xl font-teko tracking-wide"
+          >
+            Events
+          </motion.h1>
+        </motion.div>
 
+        {/* ---------- States ---------- */}
         {loading && (
           <p className="text-center text-white/70">
             Loading events...
@@ -66,32 +142,62 @@ export const Events = () => {
           </p>
         )}
 
+        {/* ---------- Events Grid ---------- */}
         {!loading && !error && events.length > 0 && (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div
+            variants={cardContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{
+              once: false,
+              amount: 0.2,
+              margin: "-120px 0px -120px 0px", // 👈 prevents early vanish
+            }}
+            className="
+              grid gap-5
+              sm:grid-cols-2
+              md:grid-cols-3
+              xl:grid-cols-4
+            "
+          >
             {events.map((event) => (
-              <article
+              <motion.article
                 key={event.id}
-                className="bg-[#112a63] rounded-lg overflow-hidden ring-1 ring-white/10 hover:ring-white/20 transition"
+                variants={cardItem}
+                whileHover={{ y: -4, scale: 1.015 }}
+                className="
+                  bg-[#112a63]
+                  rounded-lg overflow-hidden
+                  ring-1 ring-white/10
+                  hover:ring-white/20
+                  transition
+                "
               >
                 {event.image && (
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className="h-48 w-full object-cover"
-                    loading="lazy"
-                  />
+                  <div className="h-40 overflow-hidden">
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="
+                        h-full w-full object-cover
+                        transition-transform duration-500
+                        hover:scale-105
+                      "
+                      loading="lazy"
+                    />
+                  </div>
                 )}
 
-                <div className="p-5">
+                <div className="p-4">
                   <p className="text-xs text-white/60 mb-1">
                     {event.date}
                   </p>
 
-                  <h2 className="text-lg font-semibold mb-2">
+                  <h2 className="text-sm font-semibold mb-1">
                     {event.title}
                   </h2>
 
-                  <p className="text-sm text-white/80 line-clamp-4">
+                  <p className="text-xs text-white/80 line-clamp-4">
                     {event.description}
                   </p>
 
@@ -100,17 +206,17 @@ export const Events = () => {
                       href={event.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-block mt-4 text-blue-400 hover:underline text-sm"
+                      className="inline-block mt-3 text-blue-400 hover:underline text-xs"
                     >
                       View Event →
                     </a>
                   )}
                 </div>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         )}
       </main>
-    </div>
+    </section>
   );
 };

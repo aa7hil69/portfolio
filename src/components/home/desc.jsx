@@ -104,7 +104,7 @@ export const Description = () => {
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.6 }}
-                transition={{ type: "spring", stiffness: 420, damping: 28}}
+                transition={{ type: "spring", stiffness: 420, damping: 28 }}
                 className="mt-2 text-white/95 font-teko font-light text-[15px] sm:text-[25px] leading-7"
               >
                 A respected figure in the Middle East’s HR and manpower ecosystem,
