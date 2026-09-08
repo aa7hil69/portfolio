@@ -1,10 +1,9 @@
-# Copy to .dev.vars for local `npm run cf:preview` (gitignored if named .dev.vars)
 CLIENTS_API_URL=https://jminternationalspc.com/API/clients
-CLIENTS_API_KEY=
+CLIENTS_API_KEY=JMSPC-live_3aBcDeFgHiJkLmNoPqRsTuVwXyZ1234567890
 EVENTS_API_URL=https://jminternationalspc.com/API/events
-EVENTS_API_KEY=
+EVENTS_API_KEY=JMSPC-live_3aBcDeFgHiJkLmNoPqRsTuVwXyZ1234567890
 GALLERIES_API_URL=https://jminternationalspc.com/API/gallery
-GALLERIES_API_KEY=
+GALLERIES_API_KEY=JMSPC-live_3aBcDeFgHiJkLmNoPqRsTuVwXyZ1234567890
 RESEND_API_KEY=
-CONTACT_INBOX=jsjmispc@gmail.com
-CONTACT_FROM=JM International <noreply@jminternationalspc.com>
+CONTACT_INBOX=careers.jminternational@gmail.com
+CONTACT_FROM=JM International <noreply@jessymathew.me>

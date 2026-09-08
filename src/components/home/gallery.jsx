@@ -252,6 +252,8 @@ import {
   useAnimationFrame,
   useMotionValue,
 } from "framer-motion";
+import { GallerySkeleton } from "../ui/Skeleton";
+import { withMinSkeletonTime } from "../../utils/withMinSkeletonTime";
 
 /* ---------------- Animations ---------------- */
 
@@ -289,6 +291,7 @@ export const Gallery = () => {
     let ignore = false;
 
     async function fetchGallery() {
+      const startedAt = Date.now();
       try {
         const res = await fetch("/api/galleries");
         if (!res.ok) throw new Error("Failed to fetch gallery");
@@ -309,6 +312,7 @@ export const Gallery = () => {
         console.error(err);
         if (!ignore) setItems([]);
       } finally {
+        await withMinSkeletonTime(startedAt, 3000);
         if (!ignore) setLoading(false);
       }
     }
@@ -341,7 +345,7 @@ export const Gallery = () => {
 
         <div className="mx-auto max-w-7xl px-4 mt-8">
           {loading ? (
-            <p className="text-center text-white/70">Loading...</p>
+            <GallerySkeleton count={4} />
           ) : items.length ? (
             <AnimatedGrid items={items} onOpen={setActive} />
           ) : (

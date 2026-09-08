@@ -116,6 +116,8 @@
 // };
  
 import React, { useEffect, useState } from "react";
+import { EventsListSkeleton } from "../ui/Skeleton";
+import { withMinSkeletonTime } from "../../utils/withMinSkeletonTime";
 
 /* ===============================
    CONFIG
@@ -193,6 +195,7 @@ export const Events = () => {
 
   useEffect(() => {
     async function fetchEvents() {
+      const startedAt = Date.now();
       try {
         const res = await fetch("/api/events");
         if (!res.ok) throw new Error("Failed to fetch events");
@@ -230,6 +233,7 @@ export const Events = () => {
         console.error(err);
         setError("Unable to load events");
       } finally {
+        await withMinSkeletonTime(startedAt, 3000);
         setLoading(false);
       }
     }
@@ -244,13 +248,9 @@ export const Events = () => {
           Events
         </h1>
 
-        {loading && (
-          <p className="text-center text-white/70">
-            Loading events...
-          </p>
-        )}
+        {loading && <EventsListSkeleton count={6} />}
 
-        {error && (
+        {!loading && error && (
           <p className="text-center text-red-400">
             {error}
           </p>

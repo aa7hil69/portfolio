@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
+import { ClientsSkeleton } from "../ui/Skeleton";
+import { withMinSkeletonTime } from "../../utils/withMinSkeletonTime";
 
 /* ---------------- Animations ---------------- */
 
@@ -40,7 +42,7 @@ const chunkArray = (arr, size) => {
 
 /* ---------------- Panel ---------------- */
 
-function Panel({ items = [], rows = 12, seed = 0, loading, error }) {
+function Panel({ items = [], rows = 12, seed = 0 }) {
   const computed = useMemo(() => {
     if (!items.length) return [];
     if (items.length <= rows) return items;
@@ -77,42 +79,30 @@ function Panel({ items = [], rows = 12, seed = 0, loading, error }) {
       }}
     >
       <div className="p-4 sm:p-5">
-        {loading && (
-          <div className="text-slate-300 text-sm">Loading...</div>
-        )}
-
-        {error && (
-          <div className="text-red-300 text-sm">
-            Failed to load data
-          </div>
-        )}
-
-        {!loading && !error && (
-          <motion.ul className="space-y-3">
-            {computed.map((name, i) => (
-              <motion.li
-                key={i}
-                variants={{
-                  hidden: {
-                    opacity: 0,
-                    x: -12,
+        <motion.ul className="space-y-3">
+          {computed.map((name, i) => (
+            <motion.li
+              key={i}
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  x: -12,
+                },
+                show: {
+                  opacity: 1,
+                  x: 0,
+                  transition: {
+                    duration: 0.35,
+                    ease: "easeOut",
                   },
-                  show: {
-                    opacity: 1,
-                    x: 0,
-                    transition: {
-                      duration: 0.35,
-                      ease: "easeOut",
-                    },
-                  },
-                }}
-                className="rounded-lg bg-[#112a63] px-3 py-2 text-[13px] leading-5"
-              >
-                {name}
-              </motion.li>
-            ))}
-          </motion.ul>
-        )}
+                },
+              }}
+              className="rounded-lg bg-[#112a63] px-3 py-2 text-[13px] leading-5"
+            >
+              {name}
+            </motion.li>
+          ))}
+        </motion.ul>
       </div>
     </motion.section>
   );
@@ -139,6 +129,7 @@ useEffect(() => {
   let ignore = false;
 
   async function fetchClients() {
+    const startedAt = Date.now();
     try {
       const res = await fetch("/api/clients");
       if (!res.ok) throw new Error("Failed to fetch clients");
@@ -156,6 +147,7 @@ useEffect(() => {
       console.error(e);
       if (!ignore) setError("Unable to load clients");
     } finally {
+      await withMinSkeletonTime(startedAt, 3000);
       if (!ignore) setLoading(false);
     }
   }
@@ -209,18 +201,25 @@ useEffect(() => {
           </motion.p>
         </div>
 
-        <div className="mt-12 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {chunks.map((chunk, i) => (
-            <Panel
-              key={i}
-              seed={i + 1}
-              rows={12}
-              items={chunk}
-              loading={loading}
-              error={error}
-            />
-          ))}
-        </div>
+        {loading && <ClientsSkeleton />}
+
+        {!loading && error && (
+          <p className="mt-12 text-center text-red-300 text-sm">{error}</p>
+        )}
+
+        {!loading && !error && names.length === 0 && (
+          <p className="mt-12 text-center text-slate-300 text-sm">
+            No clients found.
+          </p>
+        )}
+
+        {!loading && !error && names.length > 0 && (
+          <div className="mt-12 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {chunks.map((chunk, i) => (
+              <Panel key={i} seed={i + 1} rows={12} items={chunk} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
