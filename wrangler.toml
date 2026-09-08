@@ -1,0 +1,14 @@
+name = "jm-portfolio"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "dist"
+
+# Set these in Cloudflare Pages → Settings → Environment variables (Production + Preview):
+# CLIENTS_API_URL
+# CLIENTS_API_KEY
+# EVENTS_API_URL
+# EVENTS_API_KEY
+# GALLERIES_API_URL
+# GALLERIES_API_KEY
+# RESEND_API_KEY
+# CONTACT_INBOX
+# CONTACT_FROM   e.g. "JM International <noreply@jminternationalspc.com>"
