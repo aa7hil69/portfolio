@@ -29,10 +29,15 @@ export async function sendContactMail(fields, env = process.env) {
   });
 
   await transporter.sendMail({
-    from: `"Jessy Mathew Website" <${user}>`,
+    from: `"Jessy Mathew Portfolio" <${user}>`,
     to: inbox,
     replyTo: `"${fields.name}" <${fields.email}>`,
-    subject: `New message from ${fields.name}`,
-    text: `From: ${fields.name} <${fields.email}>\n\n${fields.message}`,
+    subject: `[Portfolio] New message from ${fields.name}`,
+    text: [
+      "Source: Portfolio (jessymathew.me)",
+      `From: ${fields.name} <${fields.email}>`,
+      "",
+      fields.message,
+    ].join("\n"),
   });
 }
